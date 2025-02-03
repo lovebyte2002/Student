@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Image Viewer</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f1f1f1;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      background-color: #0078ff;
+      color: white;
+      padding: 20px 0;
+      margin: 0;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Input and Button Section */
+    .input-container {
+      text-align: center;
+      margin: 30px;
+    }
+
+    input[type="number"] {
+      padding: 12px;
+      width: 200px;
+      margin: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    select {
+      padding: 12px;
+      width: 200px;
+      margin: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 12px 30px;
+      background-color: #0078ff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #005bb5;
+    }
+
+    /* Image Container and Styling */
+    #image-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .student-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 15px;
+      background-color: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .student-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .roll-number {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Student Image Viewer</h1>
+
+  <div class="input-container">
+    <input type="number" id="batch" placeholder="Enter batch (e.g., 23)" />
+    
+    <!-- Dropdown for Branch Selection -->
+    <select id="branch">
+      <option value="">Select Branch</option>
+      <option value="CSE">CSE</option>
+      <option value="CSEAIML">CSEAIML</option>
+      <option value="CSEDS">CSEDS</option>
+      <option value="BT">BT</option>
+      <option value="CV">CV</option>
+      <option value="ECE">ECE</option>
+      <option value="EE">EE</option>
+      <option value="EEE">EEE</option>
+      <option value="ME">ME</option>
+      <option value="CHE">CHE</option>
+    </select>
+
+    <button onclick="loadImages()">Show Student Images</button>
+  </div>
+
+  <div id="image-container"></div>
+
+  <script>
+    function loadImages() {
+      const container = document.getElementById("image-container");
+      container.innerHTML = ""; // Clear previous images
+
+      const batch = document.getElementById("batch").value;
+      const branch = document.getElementById("branch").value.toUpperCase();
+
+      if (!batch || !branch) {
+        alert("Please enter both batch and branch.");
+        return;
+      }
+
+      for (let i = 1; i <= 1200; i++) {  // Adjust the range as needed
+        const rollNumber = `${batch}${branch}${String(i).padStart(3, '0')}`;
+        const imageUrl = `https://gietuerp.in/StudentDocuments/${rollNumber}/${rollNumber}.JPG?v=USSX1VlCNFECPLHwxtiU--bacbX70ntoIv4B6hyQ8MQ`;
+
+        const card = document.createElement("div");
+        card.className = "student-card";
+
+        const img = document.createElement("img");
+        img.src = imageUrl;
+        img.alt = `Student ${rollNumber}`;
+
+        const rollText = document.createElement("div");
+        rollText.className = "roll-number";
+        rollText.textContent = rollNumber;
+
+        card.appendChild(img);
+        card.appendChild(rollText);
+        container.appendChild(card);
+      }
+    }
+  </script>
+
+</body>
+</html>
